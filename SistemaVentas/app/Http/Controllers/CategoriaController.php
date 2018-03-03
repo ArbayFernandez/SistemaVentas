@@ -16,12 +16,12 @@ class CategoriaController extends Controller
     {
 
     }
-    public function index(Requests $request)
+    public function index(Request $request)
     {
     	if ($request)
     	{
     		$query=trim($request->get('searchText'));
-    		$categotias=DB::table('categoria')->where('nombre','LIKE','%'.$query.'%')
+    		$categorias=DB::table('categoria')->where('nombre','LIKE','%'.$query.'%')
     		->where('condicion','=','1')
     		->orderBy('idcategoria','desc')
     		->paginate('7');
@@ -51,11 +51,11 @@ class CategoriaController extends Controller
     }
     public function update(CategoriaFormRequest $request,$id)
     {
-    	$categoria = Categoria::findOrFail($id);
-    	$categoria->nombre=$request->get('nombre');
-    	$categoria->descripcion=$request->get('descripcion');
-    	$categoria->update();
-    	return Redirect::to('almancen/categoria');
+        $categoria=Categoria::findOrFail($id);
+        $categoria->nombre=$request->get('nombre');
+        $categoria->descripcion=$request->get('descripcion');
+        $categoria->update();
+        return Redirect::to('almacen/categoria');
     }
     public function destroy($id)
     {
